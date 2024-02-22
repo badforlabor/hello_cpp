@@ -160,6 +160,7 @@
     <ClCompile Include="test_event.cpp" />
     <ClCompile Include="test_function.cpp" />
     <ClCompile Include="test_forward.cpp" />
+    <ClCompile Include="test_pure_virutal.cpp" />
     <ClCompile Include="test_template.cpp" />
   </ItemGroup>
   <ItemGroup>
