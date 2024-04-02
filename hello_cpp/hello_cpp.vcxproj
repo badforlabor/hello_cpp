@@ -162,6 +162,7 @@
     <ClCompile Include="test_forward.cpp" />
     <ClCompile Include="test_pure_virutal.cpp" />
     <ClCompile Include="test_template.cpp" />
+    <ClCompile Include="test_thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoRegTestFunc.h" />
