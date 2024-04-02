@@ -122,7 +122,8 @@ namespace test_pure_virtual2
 			if(Ptr != nullptr)
 			{
 				// 模拟：另一个线程delete的指针，再调用虚函数，就会触发：纯虚函数被调用的bug了
-				delete Ptr;
+				// 注意，在release上，就能重现。在debug模式，现象是崩溃
+				// delete Ptr;
 				Ptr->CallPureFunc();
 			}
 		}		
@@ -134,7 +135,7 @@ namespace test_pure_virtual2
 		{			
 			std::chrono::milliseconds t(5);
 			std::this_thread::sleep_for(t);
-			char* Ptr = (char*)(*Db)[i];
+			CBasePure* Ptr = (*Db)[i];
 			if(Ptr != nullptr)
 			{
 				delete Ptr;
