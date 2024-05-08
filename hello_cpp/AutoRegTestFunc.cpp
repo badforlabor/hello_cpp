@@ -40,3 +40,16 @@ void AutoRegTestFunc::Destroy()
     delete callbackList;
     callbackList = nullptr;
 }
+AutoRegTestFunc::Func AutoRegTestFunc::Get(int idx)
+{
+    if (callbackList == nullptr)
+    {
+        return nullptr;
+    }
+
+    if (idx >= 0 && callbackList->size())
+    {
+        return (*callbackList)[idx];
+    }
+    return nullptr;
+}

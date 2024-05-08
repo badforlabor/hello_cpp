@@ -58,6 +58,32 @@ namespace test_pure_virtual
 		CDerived myDerived;
 	}
 
+
+
+	class CBase2
+	{
+	public:
+		virtual ~CBase2() {}
+		virtual void function() = 0;
+	};
+	class CDerived2 : public CBase2
+	{
+	public:
+		virtual void function() {}
+	};
+	
+	static void Test2() 
+	{
+		return;
+		
+		_set_purecall_handler(myPurecallHandler);
+		CBase2* Base = new CDerived2();
+		Base->function();
+		delete Base;
+		// 不行，会崩溃。读取虚表的时候，指针错误了
+		Base->function();
+	}
+
 #if DO_TEST_CALL_VIRTUAL_FUNCTION
 	static AutoRegTestFunc autoTest1(Test1);
 #endif
