@@ -165,6 +165,7 @@
     <ClCompile Include="test_struct.cpp" />
     <ClCompile Include="test_template.cpp" />
     <ClCompile Include="test_thread.cpp" />
+    <ClCompile Include="test_tuple.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoRegTestFunc.h" />
