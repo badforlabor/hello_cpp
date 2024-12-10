@@ -158,6 +158,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test_cast.cpp" />
     <ClCompile Include="test_custom_bind.cpp" />
+    <ClCompile Include="test_decltype.cpp" />
     <ClCompile Include="test_event.cpp" />
     <ClCompile Include="test_function.cpp" />
     <ClCompile Include="test_forward.cpp" />
