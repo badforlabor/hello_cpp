@@ -45,6 +45,26 @@ namespace test_tuple
             Add(Other...);
             Add(n);
         }
+
+
+        static std::string Concat1(const int& A, const int& B)
+        {
+            return std::to_string(A+B);
+        }   
+        static std::string Concat1(const std::string& A, const std::string& B)
+        {
+            return A + "/" + B;
+        }         
+        template<typename Type, typename Type2>
+        static std::string Concat(const Type& A, const Type2& B)
+        {
+            return Concat1(A, B);
+        }
+        template<typename Type, typename ...Types>
+        static std::string Concat(const Type& A, const Types& ...B)
+        {
+            return Concat1(A, Concat(B...));
+        }
         
         std::string ToString()
         {
@@ -61,6 +81,14 @@ namespace test_tuple
         }
         
         static void Test1()
+        {
+            std::string Ret = FNestedString::Concat("1", "2", "3");             
+            std::cout << Ret << std::endl;
+            // std::string Ret2 = FNestedString::Concat(1, 2, 3);
+            // std::cout << Ret2 << std::endl;
+        }
+        
+        static void Test2()
         {
             FNestedString a;
             a.Add("1", "2", "3");
@@ -82,4 +110,5 @@ namespace test_tuple
     
 
     static AutoRegTestFunc autoTest1(FNestedString::Test1);
+    static AutoRegTestFunc autoTest2(FNestedString::Test2);
 }

@@ -163,6 +163,7 @@
     <ClCompile Include="test_function.cpp" />
     <ClCompile Include="test_forward.cpp" />
     <ClCompile Include="test_pure_virutal.cpp" />
+    <ClCompile Include="test_sfinae.cpp" />
     <ClCompile Include="test_struct.cpp" />
     <ClCompile Include="test_template.cpp" />
     <ClCompile Include="test_thread.cpp" />
