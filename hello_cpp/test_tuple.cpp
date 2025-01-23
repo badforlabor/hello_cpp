@@ -6,6 +6,7 @@
 
 
 #include <assert.h>
+#include <cstdarg>
 #include <iostream>
 #include <sstream>
 #include <thread>
@@ -107,8 +108,95 @@ namespace test_tuple
         std::vector<std::string> NestedString;
     };
 
+    // 参数展开表达式
+    class FNestedArgs
+    {
+    public:
+        static void PrintArgs(const char* format, ...)
+        {
+            va_list args; // 声明一个 va_list 类型的变量
+            va_start(args, format); // 初始化 args，使其指向第一个可变参数
+
+            // 处理格式字符串
+            while (*format != '\0') {
+                if (*format == 'd') { // 整数
+                    int i = va_arg(args, int); // 获取下一个参数
+                    std::cout << i;
+                } else if (*format == 'f') { // 浮点数
+                    double d = va_arg(args, double);
+                    std::cout << d;
+                } else if (*format == 'c') { // 字符
+                    int c = va_arg(args, int); // char 在 va_arg 中被提升为 int
+                    std::cout << static_cast<char>(c);
+                } else if (*format == 's') { // 字符串
+                    const char* s = va_arg(args, const char*);
+                    std::cout << s;
+                }
+                ++format; // 移动到下一个格式字符
+            }
+
+            va_end(args); // 清理工作
+        }
+        // 啥也不干，只是为了验证"ToString(Args)..."语法
+        template<class T>
+        static T ToString(T&& v)
+        {
+            return v;
+        }
+        template<typename ...T>
+        static void TPrintArgs(const char* format, T...Args)
+        {
+            // "ToString(Args)..."意思是会递归调用ToString(Args)
+            PrintArgs(format, ToString(Args)...);
+            std::cout << std::endl;
+        }
+        
+        static void Test3()
+        {
+            TPrintArgs("%d%s", 1, "23");
+        }
+    };
+    
+    class FNestedArgs2
+    {
+    public:
+        
+        // 基础情况：当元组为空时，什么也不做
+        template <typename Func, typename Tuple, std::size_t... Is>
+        static constexpr decltype(auto) apply_impl(Func&& func, Tuple&& tuple, std::index_sequence<Is...>) {
+            return std::forward<Func>(func)(std::get<Is>(std::forward<Tuple>(tuple))...);
+        }
+
+        // 主函数：用于展开元组并调用函数
+        template <typename Func, typename Tuple>
+        static constexpr decltype(auto) apply(Func&& func, Tuple&& tuple) {
+            return apply_impl(std::forward<Func>(func), std::forward<Tuple>(tuple), 
+                              std::make_index_sequence<std::tuple_size<std::decay_t<Tuple>>::value>{});
+        }
+        
+        static void printArgs(int a, int b, int c, int d, int e) {
+            std::cout << a << " " << b << " " << c << " " << d << " " << e << std::endl;
+        }
+
+        // 辅助函数，用于将 vector 转换为 tuple
+        template<typename T>
+        static auto vectorToTuple(const std::vector<T>& vec) {
+            return apply([](auto&&... args) { return std::make_tuple(args...); }, vec);
+        }
+        
+        static void Test4()
+        {
+            std::vector<int> vec = {1, 2, 3, 4, 5};
+
+            // 通过 std::apply 将 vector 的元素作为参数传递
+            // apply(printArgs, vectorToTuple(vec));
+        }
+    };
+
     
 
     static AutoRegTestFunc autoTest1(FNestedString::Test1);
     static AutoRegTestFunc autoTest2(FNestedString::Test2);
+    static AutoRegTestFunc autoTest3(FNestedArgs::Test3);
+    static AutoRegTestFunc autoTest4(FNestedArgs2::Test4);
 }

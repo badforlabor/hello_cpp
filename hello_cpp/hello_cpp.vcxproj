@@ -106,9 +106,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalOptions>/Zc:nrvo   /Zc:nrvo- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +164,7 @@
     <ClCompile Include="test_function.cpp" />
     <ClCompile Include="test_forward.cpp" />
     <ClCompile Include="test_pure_virutal.cpp" />
+    <ClCompile Include="test_rvalue.cpp" />
     <ClCompile Include="test_sfinae.cpp" />
     <ClCompile Include="test_struct.cpp" />
     <ClCompile Include="test_template.cpp" />
