@@ -12,11 +12,11 @@ namespace hellocpp
 {
     // 声明
     template <typename... Args>
-    void Print(std::stringstream& out, Args&&...);
+    void Println(std::stringstream& out, Args&&...);
 
     // 全特化一个最小的
     template <>
-    void Print(std::stringstream& out)
+    inline void Println(std::stringstream& out)
     {
         if (out.gcount() > 0)
         {
@@ -26,21 +26,21 @@ namespace hellocpp
 
     // 定义
     template <typename Args1, typename... Args>
-    void Print(std::stringstream& out, Args1&& arg1, Args&&... args)
+    void Println(std::stringstream& out, Args1&& arg1, Args&&... args)
     {
         if (out.str().size() > 0)
         {
             out << ", ";
         }
         out << arg1;
-        Print(out, args...);
+        Println(out, args...);
     }
 
     template <typename... Args>
-    void Print(Args&&... args)
+    void Println(Args&&... args)
     {
         std::stringstream out;
-        Print(out, args...);
+        Println(out, args...);
         std::cout << out.str() << std::endl;
     }
 
@@ -66,6 +66,6 @@ namespace hellocpp
     {
         FA fa;
         fa.A = 1; fa.B = 2.3f; fa.C = "C";
-        Print(1, 2.0f, "3", fa);
+        Println(1, 2.0f, "3", fa);
     }
 }

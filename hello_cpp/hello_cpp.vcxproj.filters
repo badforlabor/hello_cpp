@@ -60,6 +60,10 @@
     <ClCompile Include="test_tuple.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+
+    <ClCompile Include="test_other.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoRegTestFunc.h">

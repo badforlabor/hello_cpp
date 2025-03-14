@@ -76,10 +76,10 @@ namespace test_template
     static void Test1()
     {
         hellocpp::TestPrint();
-        hellocpp::Print(ConstInt10, ConstInt20, ConstFloat1, ConstFloat2, ConstString1, ConstString2);
+        hellocpp::Println(ConstInt10, ConstInt20, ConstFloat1, ConstFloat2, ConstString1, ConstString2);
 
         int a = Get<int, 1>();
-        hellocpp::Print(a);
+        hellocpp::Println(a);
         
         printDouble(1.1f, 2.2f);
 
