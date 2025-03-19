@@ -140,6 +140,23 @@ namespace test_sfinae2
         return IsTypeAllowedImpl<CleanType>::value;
     }
 
+
+    template <class T>
+    struct RemoveContainer {
+        using Type      = T;
+        using ConstType = const T;
+    };
+    template <class T>
+    struct RemoveContainer<TArray<T>> {
+        using Type      = RemoveContainer<T>::Type;
+        using ConstType = RemoveContainer<T>::ConstType;
+    };
+    template <class T>
+    struct RemoveContainer<TSet<T>> {
+        using Type      = RemoveContainer<T>::Type;
+        using ConstType = RemoveContainer<T>::ConstType;
+    };
+    
     class FClass0
     {
         
@@ -186,7 +203,17 @@ namespace test_sfinae2
             assert(trueList[i] == 1);
         }          
     }
+    static void Test2()
+    {
+        auto v1 = (std::is_same<RemoveContainer<TSet<FClass1>>::Type, FClass1>::value);
+        auto v2 = (std::is_same<RemoveContainer<TSet<TSharedPtr<FClass1>>>::Type, TSharedPtr<FClass1>>::value);
+        auto v3 = (std::is_same<RemoveContainer<TSet<TSharedPtr<FClass1>>>::Type, FClass1>::value);
+        assert(v1);
+        assert(v2);
+        assert(!v3);
+    }
     
-    static AutoRegTestFunc autoTestForward3(Test1);
+    static AutoRegTestFunc autoTest1(Test1);
+    static AutoRegTestFunc autoTest2(Test2);
 }
 
