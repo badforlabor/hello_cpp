@@ -205,12 +205,21 @@ namespace test_sfinae2
     }
     static void Test2()
     {
-        auto v1 = (std::is_same<RemoveContainer<TSet<FClass1>>::Type, FClass1>::value);
-        auto v2 = (std::is_same<RemoveContainer<TSet<TSharedPtr<FClass1>>>::Type, TSharedPtr<FClass1>>::value);
-        auto v3 = (std::is_same<RemoveContainer<TSet<TSharedPtr<FClass1>>>::Type, FClass1>::value);
-        assert(v1);
-        assert(v2);
-        assert(!v3);
+        {         
+            auto v1 = (std::is_same<RemoveContainer<TSet<FClass1>>::Type, FClass1>::value);
+            auto v2 = (std::is_same<RemoveContainer<TSet<TSharedPtr<FClass1>>>::Type, TSharedPtr<FClass1>>::value);
+            auto v3 = (std::is_same<RemoveContainer<TSet<TSharedPtr<FClass1>>>::Type, FClass1>::value);
+            assert(v1);
+            assert(v2);
+            assert(!v3);   
+        }
+        
+        {         
+            auto v1 = (std::is_same<RemoveContainer<TArray<TSet<FClass1>>>::Type, FClass1>::value);
+            auto v2 = (std::is_same<RemoveContainer<TArray<TSet<TSharedPtr<FClass1>>>>::Type, TSharedPtr<FClass1>>::value);
+            assert(v1);
+            assert(v2);
+        }
     }
     
     static AutoRegTestFunc autoTest1(Test1);

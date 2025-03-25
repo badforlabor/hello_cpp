@@ -216,9 +216,83 @@ namespace test_sfinae3
         check_type(f);       // const T*
         check_type(move(a)); // T&&
     }
+
+    void func0()
+    {
+        std::cout << "T is 0\n";
+    }
+    void func1()
+    {
+        std::cout << "T > 0\n";
+    }
+    void func100()
+    {
+        std::cout << "T < 0\n";
+    }
+
+    // 模板函数
+    template <int T>
+    void func() {
+        if constexpr (T == 0) {
+            func0();
+        } else if constexpr (T > 0) {
+            func1();
+        } else {
+            func100();
+        }
+    }
+    
+    static void Test3()
+    {
+        if constexpr (0 == 0)
+        {
+            std::cout << 0 << std::endl;
+        }
+        else
+        {
+            std::cout << 1 << std::endl;            
+        }
+        func<0>();
+        func<1>();
+        func<-1>();
+            std::cout << "end..." << std::endl;   
+    }
+
+    
+    template<int T>
+    struct AlwaysFalse {
+        static constexpr bool value = false;
+    };
+	
+    
+    template<int N>
+    void Show()
+    {
+        if constexpr (N == 0)
+        {
+            static_assert(std::true_type::value, "444");            
+        }
+        else if constexpr (N == 1)
+        {
+            static_assert(std::true_type::value, "123");            
+        }
+        else
+        {
+            // static_assert(std::false_type::value, "123");  // 不行！不是SIFNAE！
+            static_assert(std::integral_constant<int, N>::value <= 1, "123"); // 可以！是SFINAE
+            // static_assert(AlwaysFalse<N>::value, "123"); // 可以！是SFINAE
+        }
+    }
+    static void Test4()
+    {
+        Show<0>();
+        Show<1>();
+        // Show<2>(); // 这里打开后，会报编译错误！
+    }
     
     static AutoRegTestFunc autoTestSFinae2(Test2);
-    
+    static AutoRegTestFunc autoTestSFinae3(Test3);
+    static AutoRegTestFunc autoTestSFinae4(Test4);    
 }
 
 

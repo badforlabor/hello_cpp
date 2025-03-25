@@ -70,5 +70,25 @@ namespace test_other
 		//std::cout << OffsetF << std::endl;
 		std::cout << OffsetG << std::endl;
 	}
-	static AutoRegTestFunc autoTest1(Test2);
+
+
+	struct FLLMActiveTagsScope
+	{
+		FLLMActiveTagsScope(int a, float b, std::string c)			
+		{
+			A = a;
+			B = b;
+			C = c;
+		}
+		int A; float B; std::string C;
+	};
+	
+	static void Test3()
+	{
+		FLLMActiveTagsScope scope1 = {1, 2.0, "3"};
+		// FLLMActiveTagsScope scope2 = {};
+	}
+	
+	static AutoRegTestFunc autoTest2(Test2);
+	static AutoRegTestFunc autoTest3(Test3);
 }
