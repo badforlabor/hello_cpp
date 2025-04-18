@@ -60,8 +60,16 @@
     <ClCompile Include="test_tuple.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-
     <ClCompile Include="test_other.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_sfinae2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_sfinae3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_temp_value.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="custom_bind.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test_inline.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

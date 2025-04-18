@@ -12,6 +12,7 @@
 #include <assert.h>
 
 #include "AutoRegTestFunc.h"
+#include "test_inline.h"
 
 
 namespace test_other

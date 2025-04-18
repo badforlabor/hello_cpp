@@ -20,6 +20,7 @@
 #include "log.h"
 
 #include "AutoRegTestFunc.h"
+#include "test_inline.h"
 
 namespace test_sfinae2
 {
@@ -220,6 +221,10 @@ namespace test_sfinae2
             assert(v1);
             assert(v2);
         }
+
+        std::cout << TypeName<int>::value() << std::endl;
+        std::cout << TypeName<float>::value() << std::endl;
+        std::cout << TypeName<std::string>::value() << std::endl;
     }
     
     static AutoRegTestFunc autoTest1(Test1);

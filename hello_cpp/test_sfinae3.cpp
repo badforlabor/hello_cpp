@@ -30,6 +30,7 @@ using namespace std;
 #include "log.h"
 
 #include "AutoRegTestFunc.h"
+#include "test_inline.h"
 
 namespace test_sfinae3
 {
@@ -288,6 +289,11 @@ namespace test_sfinae3
         Show<0>();
         Show<1>();
         // Show<2>(); // 这里打开后，会报编译错误！
+
+
+        std::cout << TypeName<int>::value() << std::endl;
+        std::cout << TypeName<float>::value() << std::endl;
+        std::cout << TypeName<std::string>::value() << std::endl;
     }
     
     static AutoRegTestFunc autoTestSFinae2(Test2);
