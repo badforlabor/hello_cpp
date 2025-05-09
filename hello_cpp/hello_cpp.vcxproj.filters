@@ -72,6 +72,9 @@
     <ClCompile Include="test_temp_value.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test_spdlog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoRegTestFunc.h">

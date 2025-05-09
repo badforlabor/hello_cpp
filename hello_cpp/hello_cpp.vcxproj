@@ -111,6 +111,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>/Zc:nrvo   /Zc:nrvo- %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>./</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,11 +166,13 @@
     <ClCompile Include="test_function.cpp" />
     <ClCompile Include="test_forward.cpp" />
     <ClCompile Include="test_other.cpp" />
+    <ClCompile Include="test_parameter_pack.cpp" />
     <ClCompile Include="test_pure_virutal.cpp" />
     <ClCompile Include="test_rvalue.cpp" />
     <ClCompile Include="test_sfinae.cpp" />
     <ClCompile Include="test_sfinae2.cpp" />
     <ClCompile Include="test_sfinae3.cpp" />
+    <ClCompile Include="test_spdlog.cpp" />
     <ClCompile Include="test_struct.cpp" />
     <ClCompile Include="test_template.cpp" />
     <ClCompile Include="test_temp_value.cpp" />
