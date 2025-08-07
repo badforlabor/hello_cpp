@@ -295,10 +295,56 @@ namespace test_sfinae3
         std::cout << TypeName<float>::value() << std::endl;
         std::cout << TypeName<std::string>::value() << std::endl;
     }
+
+
+    template<typename T, T>
+    struct TemplateClassStaticString;
+
+    // 在泛型类中存储一个标识
+    template<typename T, typename RET, typename ...ARG, RET(T::* func)(ARG...)>
+    struct TemplateClassStaticString< RET(T::*)(ARG...), func> {
+        static inline const char* ClassFuncName = "Default"; //此静态变量，以class为单位，而不是以实例。这样就相当于记录反射类名字
+        static RET invoke(void* ptr, ARG&&... args) {
+            T* thisptr = (T*)ptr;
+            return (thisptr->*func)(std::forward<ARG>(args)...);
+        }
+
+        static int LuaCFunction() {
+            std::cout << "call Func:" << ClassFuncName << std::endl;
+            return 0;
+        }
+    };
+
+    class Test5Cls1
+    {
+    public:
+        void Func1(int)
+        {
+        
+        }
+        void Func2(int)
+        {
+
+        }
+    };
+
+    static void Test5()
+    {
+        using b1 = TemplateClassStaticString<decltype(&Test5Cls1::Func1), &Test5Cls1::Func1>;
+        b1::ClassFuncName = "Test5Cls1::Func1";
+        using b2 = TemplateClassStaticString<decltype(&Test5Cls1::Func2), &Test5Cls1::Func2>;
+        b2::ClassFuncName = "Test5Cls1::Func2";
+
+        Test5Cls1 a1;
+
+        b1::LuaCFunction();
+        b2::LuaCFunction();
+    }
     
     static AutoRegTestFunc autoTestSFinae2(Test2);
     static AutoRegTestFunc autoTestSFinae3(Test3);
-    static AutoRegTestFunc autoTestSFinae4(Test4);    
+    static AutoRegTestFunc autoTestSFinae4(Test4);
+    static AutoRegTestFunc autoTestSFinae5(Test5);
 }
 
 
